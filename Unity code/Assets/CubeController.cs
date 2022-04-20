@@ -22,6 +22,8 @@ public class CubeController : MonoBehaviour
     
     private List<List<float>> timeSeries;
 
+    private int i = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,11 +39,17 @@ public class CubeController : MonoBehaviour
 
     // FixedUpdate can be called multiple times per frame
     void FixedUpdate() {
-        float forceX; // N
-
+        float forceX = 0; // N
+        
         // Calculate spring force on body for x component of force vector
-        forceX = -rigidBody.position.x * springConstant;
-        rigidBody.AddForce(new Vector3(forceX, 0f, 0f));
+        if (i < 4){
+            forceX = (-rigidBody.position.x /4 ) * springConstant;
+            rigidBody.AddForce(new Vector3(forceX, 0f, 0f));
+        }
+
+        if (rigidBody.position.x < 0.01  && rigidBody.position.x > -0.01) {
+            i++;
+        }
 
         currentTimeStep += Time.deltaTime;
         timeSeries.Add(new List<float>() {currentTimeStep, rigidBody.position.x, rigidBody.velocity.x, forceX});
