@@ -69,3 +69,28 @@ g\cdot\cos{\left(\alpha\right)} \\
 \mu &= \frac{v_{W_1, 0}^2}{2\cdot g}
 \end{aligned}$$
 
+## Teil 3c
+- $W_2$ fällt – konstante Fallbeschleunigung – konstante Gewichtskraft: $\overrightarrow{F_G}=\overrightarrow{g}\cdot m_{W_2}$
+$$\begin{aligned} \displaystyle 
+\overrightarrow{d(t)} &= \int_{0}^{t} \overrightarrow{v(t)} \,dt \\
+&= \int_{0}^{t}\int_{0}^{t} \overrightarrow{a(t)} \,dt\,dt \\
+&= \int_{0}^{t}\int_{0}^{t} \overrightarrow{g} \,dt\,dt \qquad \text{hier ist $\overrightarrow{a(t)}$ konstant $\overrightarrow{g}$}\\
+&= \int_{0}^{t} \overrightarrow{g}\cdot t + \overrightarrow{v_0} \,dt \\
+&= \frac{1}{2}\cdot \overrightarrow{g}\cdot t^2 + \overrightarrow{v_0}\cdot t + \overrightarrow{d_0} \\
+\end{aligned}$$
+- $\overrightarrow{v_{0,z}}=0$
+- $\overrightarrow{d_{0,z}}=0$
+- Zeit, die der Würfel braucht, um in $z$-Richtung $d_z = 5m$ zu fallen:
+$$\begin{aligned} \displaystyle
+5 &= \frac{1}{2}\cdot g\cdot t^2 + v_{0,z}\cdot t + d_{0,z} \\
+&= \frac{1}{2}\cdot g\cdot t^2 + 0 \cdot t + 0 \\
+&= \frac{1}{2}\cdot g\cdot t^2\\
+\Rightarrow t &=\sqrt{\frac{10}{g}}
+\end{aligned}$$
+- Vertikale Distanz, die der Würfel in dieser Zeit zurücklegt ($\overrightarrow{v_\text{vertikal}}$ ist konstant): 
+$$\begin{aligned} \displaystyle
+\overrightarrow{d(t_\text{Fall})} &= \int_{0}^{t} \overrightarrow{v(t)} \,dt \\
+&= \int_{0}^{t} \overrightarrow{v_\text{vertikal}} \,dt \\
+&= \overrightarrow{v_\text{vertikal}}\cdot t \\
+&= \overrightarrow{v_\text{vertikal}}\cdot \sqrt{\frac{10}{g}} \\
+\end{aligned}$$
