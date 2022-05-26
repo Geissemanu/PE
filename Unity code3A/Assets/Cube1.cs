@@ -15,32 +15,22 @@ using System.IO;
 public class Cube1 : MonoBehaviour
 {
     public Rigidbody CubeOne;
-
     public Rigidbody CubeTwo;
-
     public int springConstant; // N/m
+    public int springLength; // m
 
     private float currentTimeStep; // s
-    
     private List<List<float>> timeSeries;
 
-    public int springLength; // m
-    
-    private bool compress = false;
-
-    private bool expand = false;
-
-    private bool delay = false;
-
-    private bool locked = false;
-
     private float previousDistance; // m
-
     private float forceX = 0; // N
-
     private float distance; // m
 
+    private bool delay = false;    
+    private bool compress = true;    
+    private bool expand = false;
 
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -62,45 +52,40 @@ public class Cube1 : MonoBehaviour
     // FixedUpdate can be called multiple times per frame
     void FixedUpdate() {
 
-        distance = Mathf.Abs(CubeOne.position.x) - 0.5f - (Mathf.Abs(CubeTwo.position.x) + 0.5f);
-        if (Mathf.Abs(CubeTwo.position.x) + 0.5f + springLength > Mathf.Abs(CubeOne.position.x) - 0.5f && expand != true && delay != true){
-            compress = true;
-        }
+        distance = Mathf.Abs(CubeOne.position.x + 0.5f - (CubeTwo.position.x - 0.5f));
 
-        if (compress == true) {
-            apllySpringForce();
-            if (CubeOne.velocity.x <= CubeTwo.velocity.x){
-                compress = false;
-                expand = true;
-                locked = true;
+        if (distance < springLength){
+
+            if(compress){
+                applySpringForce();
+                if (CubeOne.velocity.x <= CubeTwo.velocity.x){
+                    compress = false;
+                    delay = true;
+                }
             }
-        }
 
-        if(CubeOne.position.x > 1){
-            locked = false;
-            delay = true;
-            apllySpringForce();
-        }
-
-        if (locked == true){
-            CubeOne.velocity = CubeTwo.velocity;
-        }
-
-        if (expand == true && delay == true && distance < springLength){
-            if (distance > previousDistance){
-                apllySpringForce();
-
+            if (delay){
+                CubeOne.velocity = CubeTwo.velocity;
+                if(CubeOne.position.x > 1){
+                    applySpringForce();
+                    expand = true;
+                    delay = false;
+                }
             }
+
+            if(expand == true && distance > previousDistance){
+                applySpringForce();
+            }
+
         }
 
         currentTimeStep += Time.deltaTime;
-        timeSeries.Add(new List<float>() {currentTimeStep, CubeOne.velocity.x , CubeOne.position.x , -forceX, CubeTwo.velocity.x, CubeTwo.position.x, CubeTwo.velocity.x , distance});
+        timeSeries.Add(new List<float>() {currentTimeStep, CubeOne.velocity.x , CubeOne.position.x , -forceX, CubeTwo.velocity.x, CubeTwo.position.x, forceX , distance});
 
         previousDistance = distance;
-
     }
 
-    void apllySpringForce(){
+    void applySpringForce(){
         forceX = springConstant * (springLength - distance);
         CubeOne.AddForce(new Vector3(-forceX, 0, 0));
         CubeTwo.AddForce(new Vector3(forceX, 0, 0));
