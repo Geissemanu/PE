@@ -75,10 +75,7 @@ public class Cube1 : MonoBehaviour
             exerciseC();
         }
 
-
-        currentTimeStep += Time.deltaTime;
-
-
+    currentTimeStep += Time.deltaTime;
     }
 
     void exerciseA(){
@@ -86,7 +83,7 @@ public class Cube1 : MonoBehaviour
         distance = Mathf.Abs(CubeOne.position.x + 0.5f - (CubeTwo.position.x - 0.5f));
 
         if (distance < springLength){
-
+            
             if(compress){
                 applySpringForce();
                 if (CubeOne.velocity.x <= CubeTwo.velocity.x){
@@ -137,11 +134,9 @@ public class Cube1 : MonoBehaviour
                 CubeOne.velocity = Vector3.zero;
                 turning = false;
             }
-            Vector3 F_deceleration = -CubeOne.velocity.normalized*frictionForce;
-
             centripetalForce = CubeOne.velocity.sqrMagnitude/radius * CubeOne.mass; // (m * v^2) / R
 
-            
+            Vector3 F_deceleration = -CubeOne.velocity.normalized*frictionForce;
             Vector3 F_centripetal = Vector3.Cross(CubeOne.velocity.normalized, Vector3.up * centripetalForce); 
 
             Vector3 F_res = F_centripetal + F_deceleration; // N
