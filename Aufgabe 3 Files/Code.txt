@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -30,7 +30,7 @@ public class Cube1 : MonoBehaviour
     private float distance; // m
     private float lastVelocity; // m/s
     private float frictionForce; // N
-    private const float radius = 10.0f; // m
+    private const float radius = 5.0f; // m
     private float centripetalForce; // N
 
     private bool delay = false;    
